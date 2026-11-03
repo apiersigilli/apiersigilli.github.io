@@ -324,7 +324,7 @@
 <header class="hero">
   <canvas class="mondo" aria-hidden="true"></canvas>
   <video id="hero" muted playsinline autoplay loop preload="auto"
-         data-h="video/hero-leggero.mp4" data-v="video/hero-v.mp4"></video>
+         data-h="video/hero-pc.mp4" data-m="video/hero-telefono.mp4" data-v="video/hero-v.mp4"></video>
   <button type="button" class="arrow prev" id="prev" aria-label="Clip precedente" data-i18n-aria="prevClip">&larr;</button>
   <button type="button" class="arrow next" id="next" aria-label="Clip successiva" data-i18n-aria="nextClip">&rarr;</button>
   <h1 class="claim-top reveal" data-i18n="claim">Vado dove va la storia.</h1>
@@ -793,7 +793,9 @@ const CLIP_H = [0, 4, 5.64, 7.28, 8.92, 10.56, 12.2];
   const hero = $('#hero');
   const vert = false; // per ora sempre lo showreel orizzontale
   hero.poster = vert ? 'video/hero-v.jpg' : 'video/hero.jpg';
-  if (!reduce) { hero.src = vert ? hero.dataset.v : hero.dataset.h; hero.play().catch(() => {}); }
+  // al telefono lo showreel è piccolo: basta la versione a 720p, tre volte più leggera
+  const small = matchMedia('(max-width:820px)').matches;
+  if (!reduce) { hero.src = vert ? hero.dataset.v : small ? hero.dataset.m : hero.dataset.h; hero.play().catch(() => {}); }
   // Pulsanti: clip precedente / successiva
   const go = dir => {
     const t = hero.currentTime;
