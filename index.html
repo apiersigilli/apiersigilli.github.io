@@ -526,6 +526,9 @@ const CONTATTI = {
 const mob = src => matchMedia('(max-width:820px)').matches ? src.replace(/\.mp4/, '-m.mp4') : src;
 // I video completi superano i 25 MB che Cloudflare accetta: restano su GitHub
 const COMPLETI = 'https://apiersigilli.github.io/';
+// Su Cloudflare i completi sono anche tagliati a pezzi (cartella video/hls): partono subito. Safari, Chrome e i telefoni li leggono da soli; gli altri browser prendono il file intero da GitHub
+const PEZZI = !location.hostname.endsWith('github.io') && document.createElement('video').canPlayType('application/vnd.apple.mpegurl') !== '';
+const completo = w => PEZZI ? mob(w.completo).replace('video/', 'video/hls/').replace(/\.mp4$/, '/index.m3u8') : COMPLETI + mob(w.completo);
 
 const LAVORI = [
   { titolo: 'Bahamas, tra kite e aquile di mare', cliente: 'Kite Boat Cruises', tipo: 'Video promozionale', luogo: 'Bahamas, 2023', video: 'video/kbc2023.mp4', poster: 'video/kbc2023.jpg', completo: 'video/kbc2023-completo.mp4', en: { titolo: 'Bahamas, kites and eagle rays', tipo: 'Promotional video', luogo: 'Bahamas, 2023' } },
@@ -662,7 +665,7 @@ const CLIP_H = [0, 4, 5.64, 7.28, 8.92, 10.56, 12.2];
     }
     fillWork(); playCur();
   };
-  const openWork = () => { const w = LAVORI[wc]; if (w.pagine) openBook(w); else openPlayer(COMPLETI + mob(w.completo)); };
+  const openWork = () => { const w = LAVORI[wc]; if (w.pagine) openBook(w); else openPlayer(completo(w)); };
   const fine = matchMedia('(hover:hover) and (pointer:fine)');
   const navH = () => document.documentElement.style.setProperty('--navh', document.querySelector('nav').offsetHeight + 'px');
   navH(); addEventListener('resize', navH);
