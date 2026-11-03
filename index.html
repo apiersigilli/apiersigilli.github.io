@@ -522,6 +522,9 @@ const CONTATTI = {
 };
 
 /* I lavori: per aggiungerne uno basta copiare un blocco */
+// Al telefono i video dei lavori arrivano a 720p (file "-m"): tre-quattro volte più leggeri
+const mob = src => matchMedia('(max-width:820px)').matches ? src.replace(/\.mp4/, '-m.mp4') : src;
+
 const LAVORI = [
   { titolo: 'Bahamas, tra kite e aquile di mare', cliente: 'Kite Boat Cruises', tipo: 'Video promozionale', luogo: 'Bahamas, 2023', video: 'video/kbc2023.mp4', poster: 'video/kbc2023.jpg', completo: 'video/kbc2023-completo.mp4', en: { titolo: 'Bahamas, kites and eagle rays', tipo: 'Promotional video', luogo: 'Bahamas, 2023' } },
   { titolo: 'Nuova Zelanda in van', cliente: '', tipo: 'Racconto di viaggio', luogo: 'Nuova Zelanda, 2024', video: 'video/nuovazelanda.mp4', poster: 'video/nuovazelanda.jpg', completo: 'video/nuovazelanda-completo.mp4', en: { titolo: 'New Zealand by van', cliente: '', tipo: 'Travel story', luogo: 'New Zealand, 2024' } },
@@ -618,7 +621,7 @@ const CLIP_H = [0, 4, 5.64, 7.28, 8.92, 10.56, 12.2];
   const BTN = { watch: { it: '[Guarda il video &#9655;]', en: '[Watch the video &#9655;]' }, leaf: { it: '[Sfoglia l\'articolo &rarr;]', en: '[Read the article &rarr;]' } };
   LAVORI.forEach((w, i) => {
     const kind = w.foto ? 'magazine' : w.verticale ? 'vertical' : 'wide';
-    const media = w.foto ? `<img src="${w.foto}" alt="" loading="lazy">` : `<video muted playsinline loop preload="none" poster="${w.poster}" data-src="${w.video}"></video>`;
+    const media = w.foto ? `<img src="${w.foto}" alt="" loading="lazy">` : `<video muted playsinline loop preload="none" poster="${w.poster}" data-src="${mob(w.video)}"></video>`;
     const layer = document.createElement('div');
     layer.className = 'layer ' + kind;
     layer.innerHTML = kind === 'wide' ? media : `<img class="blur" src="${w.foto || w.poster}" alt="" loading="lazy"><div class="frame">${media}</div>`;
@@ -657,7 +660,7 @@ const CLIP_H = [0, 4, 5.64, 7.28, 8.92, 10.56, 12.2];
     }
     fillWork(); playCur();
   };
-  const openWork = () => { const w = LAVORI[wc]; if (w.pagine) openBook(w); else openPlayer(w.completo); };
+  const openWork = () => { const w = LAVORI[wc]; if (w.pagine) openBook(w); else openPlayer(mob(w.completo)); };
   const fine = matchMedia('(hover:hover) and (pointer:fine)');
   const navH = () => document.documentElement.style.setProperty('--navh', document.querySelector('nav').offsetHeight + 'px');
   navH(); addEventListener('resize', navH);
