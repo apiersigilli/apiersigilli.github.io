@@ -25,7 +25,7 @@
   body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-weight:400;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
   a{color:inherit;text-decoration:none}
   img,video{display:block;width:100%;height:100%;object-fit:cover}
-  .mono{font-family:var(--mono);font-size:12px;line-height:1.4;letter-spacing:.04em;text-transform:uppercase}
+  .mono{font-family:var(--disp,'Jost'),'Helvetica Neue',sans-serif;font-weight:300;font-size:14px;line-height:1.4;letter-spacing:.2em;text-transform:uppercase}
   .muted{color:var(--muted)}
   .reveal{opacity:0;transform:translateY(16px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
   .reveal.in{opacity:1;transform:none}
@@ -267,8 +267,8 @@
     .index .t{font-size:20px}
     /* il cliente è già nella barra sopra: al suo posto, sul lavoro scelto, l'invito ad aprirlo */
     .index .c{display:none}
-    .index button[aria-current=true]::after{content:"[Guarda \2192]";flex:none;font-family:var(--mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--fg)}
-    html[lang=en] .index button[aria-current=true]::after{content:"[Watch \2192]"}
+    .index button[aria-current=true]::after{content:"Guarda \2192";flex:none;font-family:'Jost','Helvetica Neue',sans-serif;font-weight:300;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--fg)}
+    html[lang=en] .index button[aria-current=true]::after{content:"Watch \2192"}
     .services li{grid-template-columns:40px 1fr}
     .services p{grid-column:2}
     .contact .links{grid-template-columns:1fr}
@@ -298,6 +298,8 @@
     .reveal{opacity:1;transform:none}
     .layer,.layer.on{transition:none}
   }
+  /* Scritte piccole in Jost: al telefono un filo più strette, così il menu entra */
+  @media (max-width:600px){.mono{font-size:12px;letter-spacing:.14em}nav ul.mono{letter-spacing:.08em}}
 </style>
 </head>
 <body>
@@ -306,9 +308,9 @@
   <a href="#" class="brand"><span class="first">Alessandro</span><span class="init">A.</span> Piersigilli</a>
   <span class="mono clock" id="clock">Italia</span>
   <ul class="mono">
-    <li><a href="#lavori" data-i18n="navWork">[Lavori]</a></li>
-    <li><a href="#servizi" data-i18n="navServices">[Servizi]</a></li>
-    <li><a href="#contatti" data-i18n="navContact">[Contatti]</a></li>
+    <li><a href="#lavori" data-i18n="navWork">Lavori</a></li>
+    <li><a href="#servizi" data-i18n="navServices">Servizi</a></li>
+    <li><a href="#contatti" data-i18n="navContact">Contatti</a></li>
     <li><button type="button" class="lang" id="lang" aria-label="Switch to English">EN</button></li>
   </ul>
 </nav>
@@ -316,7 +318,7 @@
 <a class="wa mono" id="wa" hidden target="_blank" rel="noopener">WhatsApp</a>
 
 <div class="player" id="player" role="dialog" aria-modal="true" aria-label="Video">
-  <button class="close mono" id="close" data-i18n="close">[Chiudi &times;]</button>
+  <button class="close mono" id="close" data-i18n="close">Chiudi &times;</button>
   <video id="full" playsinline preload="none"></video>
 </div>
 
@@ -332,10 +334,29 @@
     <div class="row mono reveal" id="row">
       <span class="what"><span data-i18n="what1">Foto e video per viaggio, outdoor e nautica.</span></span>
       <span class="muted" data-i18n="base">Base in Italia, disponibile per trasferte</span>
-      <a href="#lavori" data-i18n="seeWork">[Guarda i lavori &darr;]</a>
+      <a href="#lavori" data-i18n="seeWork">Guarda i lavori &darr;</a>
     </div>
   </div>
 </header>
+
+<!-- CHI SONO -->
+<section id="chi-sono">
+  <div class="label mono"><h2 data-i18n="about">Chi sono</h2><span class="muted">Alessandro Piersigilli</span></div>
+  <div class="about">
+    <div class="intro">
+      <figure class="portrait reveal"><img src="img/ritratto.jpg" alt="Ritratto di Alessandro Piersigilli"></figure>
+      <h3 class="reveal" data-i18n="aboutTitle">Sono Alessandro.</h3>
+    <div class="story reveal">
+      <p data-i18n="story1">Fotografo dal 2009. La fotografia è stata il motivo per partire e, per anni, il mio modo di viaggiare: Asia, Oceania, Africa e Sud America, con lo zaino in spalla, in van, in moto e in barca, spinto dalla curiosità per le persone e le culture che incontravo.</p>
+      <p data-i18n="story2">Lungo la strada è arrivato il video. Una foto ferma un istante; il video ne restituisce il contesto: i gesti, i suoni, il ritmo di un luogo.</p>
+      <p data-i18n="story3">Poi il mare, che non ho più lasciato. Ho lavorato come istruttore di kitesurf in Grecia e alle Bahamas, a bordo delle barche charter, e anche come guida subacquea e marinaio. Conosco questi ambienti dall'interno, dalla parte di chi ci lavora ogni giorno.</p>
+      <p data-i18n="story4">Oggi metto questa esperienza al servizio di chi opera nel viaggio, nell'outdoor e nel mare: tour operator e organizzatori di esperienze, charter e scuole di sport, strutture ricettive, camper e van, marchi di attrezzatura da viaggio. Il mio lavoro è capire cosa rende unico ciò che fai e trasformarlo in immagini che lo facciano sentire.</p>
+    </div>
+    <a class="cta mono reveal" href="#contatti" data-i18n="ctaAbout">Scrivimi &rarr;</a>
+    </div>
+    </div>
+  </div>
+</section>
 
 <!-- LAVORI -->
 <section id="lavori">
@@ -406,7 +427,7 @@
 </section>
 
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Foto">
-  <div class="top mono"><span class="muted" id="lbnum"></span><button class="mono" id="lbclose" data-i18n="close">[Chiudi &times;]</button></div>
+  <div class="top mono"><span class="muted" id="lbnum"></span><button class="mono" id="lbclose" data-i18n="close">Chiudi &times;</button></div>
   <div class="stage">
     <img id="lbimg" alt="">
     <button class="arrow prev" id="lbprev" aria-label="Foto precedente" data-i18n-aria="prevPhoto">&larr;</button>
@@ -416,32 +437,13 @@
 </div>
 
 <div class="lightbox book" id="book" role="dialog" aria-modal="true" aria-label="Articolo">
-  <div class="top mono"><span class="muted" id="bknum"></span><button class="mono" id="bkclose" data-i18n="close">[Chiudi &times;]</button></div>
+  <div class="top mono"><span class="muted" id="bknum"></span><button class="mono" id="bkclose" data-i18n="close">Chiudi &times;</button></div>
   <div class="stage">
     <div class="sheet" id="sheet"></div>
     <button class="arrow prev" id="bkprev" aria-label="Pagina precedente" data-i18n-aria="prevPage">&larr;</button>
     <button class="arrow next" id="bknext" aria-label="Pagina successiva" data-i18n-aria="nextPage">&rarr;</button>
   </div>
 </div>
-
-<!-- CHI SONO -->
-<section id="chi-sono">
-  <div class="label mono"><h2 data-i18n="about">Chi sono</h2><span class="muted">Alessandro Piersigilli</span></div>
-  <div class="about">
-    <div class="intro">
-      <figure class="portrait reveal"><img src="img/ritratto.jpg" alt="Ritratto di Alessandro Piersigilli"></figure>
-      <h3 class="reveal" data-i18n="aboutTitle">Sono Alessandro.</h3>
-    <div class="story reveal">
-      <p data-i18n="story1">Fotografo dal 2009. È stata la fotografia a spingermi a viaggiare: anni tra Asia, Oceania, Africa e Sud America, con lo zaino in spalla, in van, in moto e in barca, per curiosità e per conoscere persone e culture diverse.</p>
-      <p data-i18n="story2">Lungo la strada è arrivato il video. Una foto sceglie un attimo; il video racconta quello che gli sta intorno: i gesti, i suoni, il ritmo di un luogo.</p>
-      <p data-i18n="story3">Viaggiando ho trovato anche il mare, e ci sono rimasto: istruttore di kitesurf in Grecia e sulle barche charter, guida subacquea, marinaio. Questi mondi li ho vissuti da dentro, dalla parte di chi ci lavora.</p>
-      <p data-i18n="story4">Oggi racconto storie di viaggio, outdoor e mare per chi lavora in questi mondi: tour operator ed esperienze outdoor, charter e scuole di sport, strutture ricettive, camper e van, marchi di attrezzatura da viaggio. Scopro cosa rende speciale ciò che fai, e lo faccio percepire.</p>
-    </div>
-    <a class="cta mono reveal" href="#contatti" data-i18n="ctaAbout">[Scrivimi &rarr;]</a>
-    </div>
-    </div>
-  </div>
-</section>
 
 <!-- SERVIZI -->
 <section id="servizi">
@@ -453,7 +455,7 @@
     <li class="reveal"><span class="mono muted">04</span><h3 data-i18n="s2h">Contenuti per i social</h3><p data-i18n="s2p">Reel, foto e storie pronti da pubblicare, anche per tutta la stagione.</p></li>
     <li class="reveal"><span class="mono muted">05</span><h3 data-i18n="s1h">Strategia di comunicazione</h3><p data-i18n="s1p">A chi parlare, cosa dire e su quali canali. Un piano semplice e chiaro.</p></li>
   </ul>
-  <a class="cta mono reveal" href="#contatti" data-i18n="ctaServices">[Raccontami il tuo progetto &rarr;]</a>
+  <a class="cta mono reveal" href="#contatti" data-i18n="ctaServices">Raccontami il tuo progetto &rarr;</a>
 </section>
 
 <!-- CONTATTI -->
@@ -488,31 +490,31 @@
 <footer class="mono muted">
   <span>&copy; 2026 Alessandro Piersigilli &middot; <span data-i18n="vat">P.IVA</span> 02844110417 &middot; <a href="privacy.html" data-i18n="privacy">Privacy</a></span>
   <span id="clock2">Italia</span>
-  <a href="#" data-i18n="top">[Torna su &uarr;]</a>
+  <a href="#" data-i18n="top">Torna su &uarr;</a>
 </footer>
 
 <script>
 /* ===== DA COMPILARE ===== */
 /* Testi in inglese (l'italiano è quello scritto nella pagina) */
 const EN = {
-  navWork: '[Work]', navServices: '[Services]', navContact: '[Contact]',
-  close: '[Close &times;]', prevClip: 'Previous clip', nextClip: 'Next clip', prevPhoto: 'Previous photo', nextPhoto: 'Next photo', prevPage: 'Previous page', nextPage: 'Next page', leaf: '[Read the article &rarr;]', pageWord: 'Pages',
+  navWork: 'Work', navServices: 'Services', navContact: 'Contact',
+  close: 'Close &times;', prevClip: 'Previous clip', nextClip: 'Next clip', prevPhoto: 'Previous photo', nextPhoto: 'Next photo', prevPage: 'Previous page', nextPage: 'Next page', leaf: 'Read the article &rarr;', pageWord: 'Pages',
   claim: 'I go where the story goes.',
-  role: 'Photo, video and communication', what1: 'Photo and video for travel, outdoor and boating.', base: 'Based in Italy, available to travel', seeWork: '[See the work &darr;]',
-  selected: 'Selected work', watch: '[Watch the video &#9655;]', photos: 'Photography',
+  role: 'Photo, video and communication', what1: 'Photo and video for travel, outdoor and boating.', base: 'Based in Italy, available to travel', seeWork: 'See the work &darr;',
+  selected: 'Selected work', watch: 'Watch the video &#9655;', photos: 'Photography',
   about: 'About', aboutTitle: 'I\'m Alessandro.',
-  story1: 'A photographer since 2009. Photography is what pushed me to travel: years across Asia, Oceania, Africa and South America, with a backpack, by van, by motorbike and by boat, out of curiosity and to meet different people and cultures.',
-  story2: 'Along the way came video. A photo picks a single moment; video tells what surrounds it: the gestures, the sounds, the rhythm of a place.',
-  story3: 'Travelling, I also found the sea, and I stayed: kitesurfing instructor in Greece and on charter boats, dive guide, sailor. I have lived these worlds from the inside, on the side of those who work in them.',
-  story4: 'Today I tell travel, outdoor and sea stories for those who work in these worlds: tour operators and outdoor experiences, charters and sports schools, places to stay, campers and vans, travel gear brands. I find out what makes what you do special, and I make people feel it.',
+  story1: 'A photographer since 2009. Photography was my reason to leave and, for years, my way of travelling: Asia, Oceania, Africa and South America, with a backpack on my back, by van, by motorbike and by boat, driven by curiosity about the people and cultures I met.',
+  story2: 'Along the way came video. A photo holds a single moment; video gives back its context: the gestures, the sounds, the rhythm of a place.',
+  story3: 'Then the sea, which I never left. I have worked as a kitesurfing instructor in Greece and in the Bahamas, aboard charter boats, as well as a dive guide and a sailor. I know these worlds from the inside, from the side of the people who work in them every day.',
+  story4: 'Today I put this experience at the service of those who work in travel, outdoors and the sea: tour operators and experience organisers, charters and sports schools, places to stay, campers and vans, travel gear brands. My job is to understand what makes what you do unique, and turn it into images that make people feel it.',
   services: 'Services',
   s1h: 'Communication strategy', s1p: 'Who to talk to, what to say and on which channels. A simple, clear plan.',
   s2h: 'Social media content', s2p: 'Reels, photos and stories ready to post, even for a whole season.',
   s3h: 'Corporate and promotional videos', s3p: 'Ads, website videos and stories about what you do.',
   s4h: 'Brand photography', s4p: 'People, places and products, for your website and social media.',
   s6h: 'Filming where others can\'t go', s6p: 'Underwater, by drone, on boats and in the mountains.', s6c: 'PADI Divemaster &middot; IKO Instructor &middot; Professional boat licence',
-  pubs: 'Publications', pubCap1: 'Kiteworld no. 106 &middot; 2020 &middot; editorial', pubCap2: 'Kiteworld no. 106 &middot; photo credit', pubCap3: 'Core Kites &middot; Instagram repost', pubAlt1: 'Kiteworld no. 106 editorial: kitesurfer in the air off Naxos', pubAlt2: 'Magazine caption: Photo: Alessandro Piersigilli', pubAlt3: 'Core Kites Instagram post with the same photo and the @alespiers credit', pubTitle: 'An Epic Inland Adventure', pubWhere: 'GIVI Magazine &middot; 2017', pubText: 'A 12-page reportage across Marche, Tuscany and Umbria: my words and photos.', leafBtn: '[Read the article &rarr;]', pubOpenAria: 'Read the article An Epic Inland Adventure', fName: 'Name', fEmail: 'Email', fTel: 'Phone (optional)', fMsg: 'Message', fConsent: 'I have read the <a href="privacy.html#en" target="_blank">privacy policy</a>.', fSend: 'Send message &rarr;', askTitle: 'Enquiries and quotes', askText: 'Your message comes straight to me.',
-  talk: 'Let\'s talk.', ctaAbout: '[Write to me &rarr;]', ctaServices: '[Tell me about your project &rarr;]', waText: 'Message me on WhatsApp', top: '[Back to top &uarr;]', vat: 'VAT IT', privacy: 'Privacy'
+  pubs: 'Publications', pubCap1: 'Kiteworld no. 106 &middot; 2020 &middot; editorial', pubCap2: 'Kiteworld no. 106 &middot; photo credit', pubCap3: 'Core Kites &middot; Instagram repost', pubAlt1: 'Kiteworld no. 106 editorial: kitesurfer in the air off Naxos', pubAlt2: 'Magazine caption: Photo: Alessandro Piersigilli', pubAlt3: 'Core Kites Instagram post with the same photo and the @alespiers credit', pubTitle: 'An Epic Inland Adventure', pubWhere: 'GIVI Magazine &middot; 2017', pubText: 'A 12-page reportage across Marche, Tuscany and Umbria: my words and photos.', leafBtn: 'Read the article &rarr;', pubOpenAria: 'Read the article An Epic Inland Adventure', fName: 'Name', fEmail: 'Email', fTel: 'Phone (optional)', fMsg: 'Message', fConsent: 'I have read the <a href="privacy.html#en" target="_blank">privacy policy</a>.', fSend: 'Send message &rarr;', askTitle: 'Enquiries and quotes', askText: 'Your message comes straight to me.',
+  talk: 'Let\'s talk.', ctaAbout: 'Write to me &rarr;', ctaServices: 'Tell me about your project &rarr;', waText: 'Message me on WhatsApp', top: 'Back to top &uarr;', vat: 'VAT IT', privacy: 'Privacy'
 };
 
 const CONTATTI = {
@@ -623,7 +625,7 @@ const CLIP_H = [0, 4, 5.64, 7.28, 8.92, 10.56, 12.2];
   $('#count').textContent = pad(LAVORI.length);
   const screen = $('#screen'), index = $('#index'), openB = $('#open');
   const tr = w => lang === 'en' ? { ...w, ...w.en } : w;
-  const BTN = { watch: { it: '[Guarda il video &#9655;]', en: '[Watch the video &#9655;]' }, leaf: { it: '[Sfoglia l\'articolo &rarr;]', en: '[Read the article &rarr;]' } };
+  const BTN = { watch: { it: 'Guarda il video &#9655;', en: 'Watch the video &#9655;' }, leaf: { it: 'Sfoglia l\'articolo &rarr;', en: 'Read the article &rarr;' } };
   LAVORI.forEach((w, i) => {
     const kind = w.foto ? 'magazine' : w.verticale ? 'vertical' : 'wide';
     const media = w.foto ? `<img src="${w.foto}" alt="" loading="lazy">` : `<video muted playsinline loop preload="none" poster="${w.poster}" data-src="${mob(w.video)}"></video>`;
@@ -751,7 +753,7 @@ const CLIP_H = [0, 4, 5.64, 7.28, 8.92, 10.56, 12.2];
   player.addEventListener('click', e => { if (e.target === player) closePlayer(); });
   addEventListener('keydown', e => { if (e.key === 'Escape') closePlayer(); });
 
-  // [Lavori] e [Guarda i lavori]: scorre esattamente sul primo lavoro, a schermo intero
+  // Lavori e Guarda i lavori: scorre esattamente sul primo lavoro, a schermo intero
   document.querySelectorAll('a[href="#lavori"]').forEach(l => l.addEventListener('click', e => {
     e.preventDefault();
     const r = $('.reel');
